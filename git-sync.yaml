@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mani
+  namespace: mani
+  labels:
+    name: gitrepo-volume-pod
+spec:
+  containers:
+  - image: nginx:latest
+    name: web-server
+    ports:
+      - containerPort: 80
+        protocol: TCP
+    volumeMounts:
+    - name: html
+      mountPath: /usr/share/nginx/
+
+  - name: git-sync
+    image: k8s.gcr.io/git-sync:v3.0.1
+    volumeMounts:
+        - name: html
+          mountPath: /tmp/git/
+    env:
+        - name: GIT_SYNC_REPO
+          value: https://github.com/mavrick202/dockertest1.git
+        - name: GIT_SYNC_BRANCH
+          value: master
+        - name: GIT_SYNC_DEST
+          value: html
+  volumes:
+   - name: html
+     emptyDir: {}

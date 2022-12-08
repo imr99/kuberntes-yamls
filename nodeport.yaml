@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mani
+  namespace: mani
+spec:
+  selector:
+    app: inti
+  type: NodePort
+  ports:
+  - name: mani
+    protocol: TCP
+    port: 80

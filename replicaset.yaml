@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mani
+  namespace: mani
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: mani
+  template:
+    metadata:
+      labels:
+        tier: mani
+    spec:
+      containers:
+      - name: mani
+        image: imr99/ecomm
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html/
+          name: test-volume
+      volumes:
+      - name: test-volume
+    # This AWS EBS volume must already exist.
+        awsElasticBlockStore:
+          volumeID: vol-014568c9b00d48556
+          fsType: ext4

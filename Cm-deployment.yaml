@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  #creationTimestamp: null
+  labels:
+    app: newnginx
+  name: newnginx
+  namespace: mani
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: newnginx
+  strategy: {}
+  template:
+    metadata:
+    #creationTimestamp: null
+     labels:
+       app: newnginx
+    spec:
+      containers:
+      - image: nginx:latest
+        name: nginx
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - mountPath: /usr/share/nginx/html/
+            name: nginx-conf
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: defaultpage

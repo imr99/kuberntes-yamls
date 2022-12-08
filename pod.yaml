@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: mani
+  labels:
+    app: mani
+spec:
+  containers:
+  - image: imr99/ecomm
+    name: mani
+    ports: 
+    - containerPort: 80

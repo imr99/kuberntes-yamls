@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mani
+  namespace: mani
+spec:
+  containers:
+  - name: mani
+    image: imr99/ecomm
+    volumeMounts:
+      - name: testvol
+        mountPath: /tmp/testvolume
+  volumes:
+     - name: testvol
+       emptyDir: {}
